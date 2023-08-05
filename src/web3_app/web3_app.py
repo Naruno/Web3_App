@@ -22,6 +22,10 @@ class web3:
     command_line = False
     def __init__(self, port=8000, host="localhost", hour=4):
         password = secret.get("password")
+        if password == None:
+            web3.set_pass(input("Password: "))
+            password = secret.get("password")
+        
         self.integration = Integration("Web3", password=password, port=port, host=host)
 
         self.post_wait_time = hour * 60 * 60
@@ -32,7 +36,7 @@ class web3:
 
     @staticmethod
     def set_pass(password:str):
-        secret.set("password", password)
+        secret.set("password", password)   
 
     
     def username(self, username:str):
