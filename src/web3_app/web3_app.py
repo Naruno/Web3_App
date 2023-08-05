@@ -74,7 +74,7 @@ class web3:
             if data != []:
                 for each in data:
                     user = each["fromUser"]
-                    action = each["data"]["action"]
+                    action = each["data"]["action"].replace("Web3","")
                     data = each["data"]["app_data"]
 
                     print(user, action, data)
