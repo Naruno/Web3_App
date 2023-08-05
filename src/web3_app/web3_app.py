@@ -68,7 +68,9 @@ class web3:
 
     def run(self):
         while True:
+            print("running")
             data = self.integration.get()
+            print(data)
             if data != []:
                 for each in data:
                     user = each["fromUser"]
