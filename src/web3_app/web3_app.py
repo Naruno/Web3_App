@@ -116,9 +116,9 @@ class web3:
                             database_user["posts"] = data
                             database_user["last_post"] = time.time()
                             database_user["post_numer"] += 1
-                            database_new_messages.set(each["signature"], [user, data])
+                            database_new_messages.set(each["signature"], [database_user["username"], data])
 
-                        database.set(database_user["username"], database_user)
+                        database.set(user, database_user)
 
 
 
