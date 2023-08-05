@@ -18,9 +18,13 @@ database = KOT("database")
 
 secret = KOT("secret")
 
+settings = KOT("settings")
+
 class web3:
     command_line = False
-    def __init__(self, port=8000, host="localhost", hour=4, password=None):
+    def __init__(self, port=8000, host="localhost", hour=None,password=None):
+        if hour != None:
+            settings.set("hour", hour)
         if password == None:
             password = secret.get("password")
             if password == None:
@@ -29,11 +33,18 @@ class web3:
         
         self.integration = Integration("Web3", password=password, port=port, host=host)
 
-        self.post_wait_time = hour * 60 * 60
+        
 
 
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
 
+
+    @property
+    def post_wait_time(self):
+        record = settings.get("hour")
+        if record == None:
+            record = 4
+        return record * 60 * 60
 
     @staticmethod
     def set_pass(password:str):
@@ -62,7 +73,7 @@ class web3:
     def get_user(self, username:str):
         record = database.get(username)
         if record == None:
-            record = {"username": username, "posts": [], "last_post": 0}
+            record = {"username": username, "posts": None, "last_post": 0}
         return record
 
 
@@ -106,7 +117,7 @@ class web3:
                         if action == "username":
                             database_user["username"] = data
                         elif action == "post":
-                            database_user["posts"].append(data)
+                            database_user["posts"] = data
                             database_user["last_post"] = time.time()
                         
                         database.set(user, database_user)
