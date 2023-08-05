@@ -40,17 +40,24 @@ class web3:
         secret.set("password", password)   
 
     
+    def user_final(self):
+        if web3.command_line:
+            self.close()            
+        return True        
+
     def username(self, username:str):
         #its should max 15 char
         if len(username) > 15:
             raise Exception("Username should be max 15 char")
         self.integration.send("username", username, self.official)
+        return self.user_final()
     
     def post(self, post:str):
         #its should max 100 char
         if len(post) > 100:
             raise Exception("Post should be max 100 char")
         self.integration.send("post", post, self.official)
+        return self.user_final()
 
     def get_user(self, username:str):
         record = database.get(username)
