@@ -18,6 +18,7 @@ install_requires=[
     "naruno_remote_app",
     "naruno",
     "kot==0.20.2",
+    "flet==0.8.4"
 ],
 entry_points = {
     'console_scripts': ['web3=web3_app.web3_app:main'],

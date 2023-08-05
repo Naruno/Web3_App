@@ -15,6 +15,7 @@ import pickle
 import contextlib
 
 database = KOT("database")
+database_new_messages = KOT("database_new_messages")
 
 secret = KOT("secret")
 
@@ -115,7 +116,8 @@ class web3:
                             database_user["posts"] = data
                             database_user["last_post"] = time.time()
                             database_user["post_numer"] += 1
-                        
+                            database_new_messages.set(each["signature"], [user, data])
+
                         database.set(user, database_user)
 
 
@@ -124,6 +126,13 @@ class web3:
 
     def close(self):
         self.integration.close()
+
+
+    @staticmethod
+    def web(host=None, port=0):
+        from .gui import WEB
+        WEB(host, port)
+
 
 def main():
     web3.command_line = True
