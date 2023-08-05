@@ -67,6 +67,8 @@ class web3:
                     action = each["data"]["action"]
                     data = each["data"]["app_data"]
 
+                    print(user, action, data)
+
                     control = True
 
                     if not isinstance(data, str):
@@ -88,6 +90,7 @@ class web3:
                         
                     
                     if control:
+                        print("control is ok")
                         database_user = self.get_user(user)
 
                         if action == "username":
