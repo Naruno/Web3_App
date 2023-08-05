@@ -76,16 +76,14 @@ class web3:
 
     def run(self):
         while True:
-            print("running")
             data = self.integration.get()
-            print(data)
             if data != []:
                 for each in data:
                     user = each["fromUser"]
                     action = each["data"]["action"].replace("Web3","")
                     data = each["data"]["app_data"]
 
-                    print(user, action, data)
+
 
                     control = True
 
@@ -108,7 +106,7 @@ class web3:
                         
                     
                     if control:
-                        print("control is ok")
+
                         database_user = self.get_user(user)
 
                         if action == "username":
