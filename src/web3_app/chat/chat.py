@@ -65,7 +65,7 @@ def main(page: ft.Page):
     def send_message_click(e):
         global sended_message
         new = False
-        total_list = {"adasd": ["mehmet", "Merhaba"], "dsadsadas": ["onur", "Merhabalar"]}#database_new_messages.get_all()
+        total_list = database_new_messages.get_all()
         for each_new_message in total_list:
             the_value = total_list[each_new_message]
             if the_value not in sended_message:
