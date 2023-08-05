@@ -118,7 +118,7 @@ class web3:
                             database_user["post_numer"] += 1
                             database_new_messages.set(each["signature"], [user, data])
 
-                        database.set(user, database_user)
+                        database.set(database_user["username"], database_user)
 
 
 
