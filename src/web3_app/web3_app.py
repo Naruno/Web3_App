@@ -33,9 +33,6 @@ class web3:
         
         self.integration = Integration("Web3", password=password, port=port, host=host)
 
-        
-
-
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
 
 
@@ -73,7 +70,7 @@ class web3:
     def get_user(self, username:str):
         record = database.get(username)
         if record == None:
-            record = {"username": username, "posts": None, "last_post": 0}
+            record = {"username": username, "posts": None, "last_post": 0, "post_numer":0}
         return record
 
 
@@ -119,6 +116,7 @@ class web3:
                         elif action == "post":
                             database_user["posts"] = data
                             database_user["last_post"] = time.time()
+                            database_user["post_numer"] += 1
                         
                         database.set(user, database_user)
 
