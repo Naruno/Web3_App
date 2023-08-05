@@ -2,8 +2,8 @@ from setuptools import setup
 
 
 setup(name='web3_app',
-version='0.5.1',
-description="""Mapping Addresses to Dynamic IPs, Simplified""",
+version='0.1.0',
+description="""The source of Web3.""",
 long_description_content_type="text/markdown",
 include_package_data=True,
 long_description="".join(open("README.md", encoding="utf-8").readlines()),
