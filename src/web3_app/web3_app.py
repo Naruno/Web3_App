@@ -20,11 +20,12 @@ secret = KOT("secret")
 
 class web3:
     command_line = False
-    def __init__(self, port=8000, host="localhost", hour=4):
-        password = secret.get("password")
+    def __init__(self, port=8000, host="localhost", hour=4, password=None):
         if password == None:
-            web3.set_pass(input("Password: "))
             password = secret.get("password")
+            if password == None:
+                web3.set_pass(input("Password: "))
+                password = secret.get("password")
         
         self.integration = Integration("Web3", password=password, port=port, host=host)
 
