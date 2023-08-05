@@ -107,8 +107,7 @@ class web3:
                             database_user["username"] = data
                         elif action == "post":
                             database_user["posts"].append(data)
-
-                        database_user["last_post"] = time.time()
+                            database_user["last_post"] = time.time()
                         
                         database.set(user, database_user)
 
