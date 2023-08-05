@@ -128,6 +128,7 @@ class web3:
         self.integration.close()
 
 
+class web3_web:
     @staticmethod
     def web(host=None, port=0):
         from .gui import WEB
@@ -137,3 +138,6 @@ class web3:
 def main():
     web3.command_line = True
     fire.Fire(web3)
+
+def web_main():
+    fire.Fire(web3_web)

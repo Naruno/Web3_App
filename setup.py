@@ -21,7 +21,7 @@ install_requires=[
     "flet==0.8.4"
 ],
 entry_points = {
-    'console_scripts': ['web3=web3_app.web3_app:main'],
+    'console_scripts': ['web3=web3_app.web3_app:main','web3_web=web3_app.web3_app:web_main'],
 },
 python_requires=">= 3",
 zip_safe=False)
