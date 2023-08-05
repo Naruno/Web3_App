@@ -16,9 +16,12 @@ import contextlib
 
 database = KOT("database")
 
+secret = KOT("secret")
+
 class web3:
     command_line = False
-    def __init__(self, password, port=8000, host="localhost", hour=4):
+    def __init__(self, port=8000, host="localhost", hour=4):
+        password = secret.get("password")
         self.integration = Integration("Web3", password=password, port=port, host=host)
 
         self.post_wait_time = hour * 60 * 60
@@ -27,7 +30,9 @@ class web3:
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
 
 
-
+    @staticmethod
+    def set_pass(password:str):
+        secret.set("password", password)
 
     
     def username(self, username:str):
