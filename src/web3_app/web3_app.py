@@ -99,6 +99,9 @@ class web3:
                     if action == "username":
                         if len(data) > 15:
                             control = False
+                        for _user in database.get_all():
+                            if _user["username"] == data:
+                                control = False
                     elif action == "post":
                         if len(data) > 100:
                             control = False
