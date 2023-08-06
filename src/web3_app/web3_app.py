@@ -5,14 +5,13 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-from kot import KOT
-
-from naruno.apps.remote_app import Integration
-
-import time
-import fire
-import pickle
 import contextlib
+import pickle
+import time
+
+import fire
+from kot import KOT
+from naruno.apps.remote_app import Integration
 
 database = KOT("database")
 database_new_messages = KOT("database_new_messages")
