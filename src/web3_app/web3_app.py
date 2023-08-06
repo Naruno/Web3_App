@@ -21,9 +21,11 @@ secret = KOT("secret")
 
 settings = KOT("settings")
 
+
 class web3:
     command_line = False
-    def __init__(self, port=8000, host="localhost", hour=None,password=None):
+
+    def __init__(self, port=8000, host="localhost", hour=None, password=None):
         if hour != None:
             settings.set("hour", hour)
         if password == None:
@@ -31,11 +33,11 @@ class web3:
             if password == None:
                 web3.set_pass(input("Password: "))
                 password = secret.get("password")
-        
-        self.integration = Integration("Web3", password=password, port=port, host=host)
+
+        self.integration = Integration(
+            "Web3", password=password, port=port, host=host)
 
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
-
 
     @property
     def post_wait_time(self):
@@ -45,35 +47,34 @@ class web3:
         return record * 60 * 60
 
     @staticmethod
-    def set_pass(password:str):
-        secret.set("password", password)   
+    def set_pass(password: str):
+        secret.set("password", password)
 
-    
     def user_final(self):
         if web3.command_line:
-            self.close()            
-        return True        
+            self.close()
+        return True
 
-    def username(self, username:str):
-        #its should max 15 char
+    def username(self, username: str):
+        # its should max 15 char
         if len(username) > 15:
             raise Exception("Username should be max 15 char")
         self.integration.send("username", username, self.official)
         return self.user_final()
-    
-    def post(self, post:str):
-        #its should max 100 char
+
+    def post(self, post: str):
+        # its should max 100 char
         if len(post) > 100:
             raise Exception("Post should be max 100 char")
         self.integration.send("post", post, self.official)
         return self.user_final()
 
-    def get_user(self, username:str):
+    def get_user(self, username: str):
         record = database.get(username)
         if record == None:
-            record = {"username": username, "posts": None, "last_post": 0, "post_numer":0}
+            record = {"username": username, "posts": None,
+                      "last_post": 0, "post_numer": 0}
         return record
-
 
     def run(self):
         while True:
@@ -81,10 +82,8 @@ class web3:
             if data != []:
                 for each in data:
                     user = each["fromUser"]
-                    action = each["data"]["action"].replace("Web3","")
+                    action = each["data"]["action"].replace("Web3", "")
                     data = each["data"]["app_data"]
-
-
 
                     control = True
 
@@ -92,7 +91,7 @@ class web3:
                         control = False
                     if not isinstance(user, str):
                         control = False
-                    
+
                     if action not in ["username", "post"]:
                         control = False
 
@@ -107,8 +106,7 @@ class web3:
                             control = False
                         if time.time() - self.get_user(user)["last_post"] < self.post_wait_time:
                             control = False
-                        
-                    
+
                     if control:
 
                         database_user = self.get_user(user)
@@ -119,11 +117,10 @@ class web3:
                             database_user["posts"] = data
                             database_user["last_post"] = time.time()
                             database_user["post_numer"] += 1
-                            database_new_messages.set(each["signature"], [database_user["username"], data])
+                            database_new_messages.set(
+                                each["signature"], [database_user["username"], data])
 
                         database.set(user, database_user)
-
-
 
             time.sleep(5)
 
@@ -141,6 +138,7 @@ class web3_web:
 def main():
     web3.command_line = True
     fire.Fire(web3)
+
 
 def web_main():
     fire.Fire(web3_web)
