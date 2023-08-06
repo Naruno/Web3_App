@@ -34,8 +34,7 @@ class web3:
                 web3.set_pass(input("Password: "))
                 password = secret.get("password")
 
-        self.integration = Integration(
-            "Web3", password=password, port=port, host=host)
+        self.integration = Integration("Web3", password=password, port=port, host=host)
 
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
 
@@ -72,8 +71,12 @@ class web3:
     def get_user(self, username: str):
         record = database.get(username)
         if record == None:
-            record = {"username": username, "posts": None,
-                      "last_post": 0, "post_numer": 0}
+            record = {
+                "username": username,
+                "posts": None,
+                "last_post": 0,
+                "post_numer": 0,
+            }
         return record
 
     def run(self):
@@ -104,11 +107,13 @@ class web3:
                     elif action == "post":
                         if len(data) > 100:
                             control = False
-                        if time.time() - self.get_user(user)["last_post"] < self.post_wait_time:
+                        if (
+                            time.time() - self.get_user(user)["last_post"]
+                            < self.post_wait_time
+                        ):
                             control = False
 
                     if control:
-
                         database_user = self.get_user(user)
 
                         if action == "username":
@@ -118,7 +123,8 @@ class web3:
                             database_user["last_post"] = time.time()
                             database_user["post_numer"] += 1
                             database_new_messages.set(
-                                each["signature"], [database_user["username"], data])
+                                each["signature"], [database_user["username"], data]
+                            )
 
                         database.set(user, database_user)
 
@@ -132,6 +138,7 @@ class web3_web:
     @staticmethod
     def web(host=None, port=0):
         from .gui import WEB
+
         WEB(host, port)
 
 
