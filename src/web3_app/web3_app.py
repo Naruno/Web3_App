@@ -49,7 +49,7 @@ class web3:
     def set_pass(password: str):
         """
 
-        :param password: str: 
+        :param password: str:
 
         """
         secret.set("password", password)
@@ -63,7 +63,7 @@ class web3:
     def username(self, username: str):
         """
 
-        :param username: str: 
+        :param username: str:
 
         """
         # its should max 15 char
@@ -75,7 +75,7 @@ class web3:
     def post(self, post: str):
         """
 
-        :param post: str: 
+        :param post: str:
 
         """
         # its should max 100 char
@@ -87,7 +87,7 @@ class web3:
     def get_user(self, username: str):
         """
 
-        :param username: str: 
+        :param username: str:
 
         """
         record = database.get(username)
