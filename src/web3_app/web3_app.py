@@ -22,6 +22,7 @@ settings = KOT("settings")
 
 
 class web3:
+    """ """
     command_line = False
 
     def __init__(self, port=8000, host="localhost", hour=None, password=None):
@@ -39,6 +40,7 @@ class web3:
 
     @property
     def post_wait_time(self):
+        """ """
         record = settings.get("hour")
         if record == None:
             record = 4
@@ -46,14 +48,25 @@ class web3:
 
     @staticmethod
     def set_pass(password: str):
+        """
+
+        :param password: str: 
+
+        """
         secret.set("password", password)
 
     def user_final(self):
+        """ """
         if web3.command_line:
             self.close()
         return True
 
     def username(self, username: str):
+        """
+
+        :param username: str: 
+
+        """
         # its should max 15 char
         if len(username) > 15:
             raise Exception("Username should be max 15 char")
@@ -61,6 +74,11 @@ class web3:
         return self.user_final()
 
     def post(self, post: str):
+        """
+
+        :param post: str: 
+
+        """
         # its should max 100 char
         if len(post) > 100:
             raise Exception("Post should be max 100 char")
@@ -68,6 +86,11 @@ class web3:
         return self.user_final()
 
     def get_user(self, username: str):
+        """
+
+        :param username: str: 
+
+        """
         record = database.get(username)
         if record == None:
             record = {
@@ -79,6 +102,7 @@ class web3:
         return record
 
     def run(self):
+        """ """
         while True:
             data = self.integration.get()
             if data != []:
@@ -130,21 +154,31 @@ class web3:
             time.sleep(5)
 
     def close(self):
+        """ """
         self.integration.close()
 
 
 class web3_web:
+    """ """
     @staticmethod
     def web(host=None, port=0):
+        """
+
+        :param host:  (Default value = None)
+        :param port:  (Default value = 0)
+
+        """
         from .gui import WEB
 
         WEB(host, port)
 
 
 def main():
+    """ """
     web3.command_line = True
     fire.Fire(web3)
 
 
 def web_main():
+    """ """
     fire.Fire(web3_web)
