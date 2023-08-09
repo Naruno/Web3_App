@@ -105,10 +105,13 @@ class web3:
                             if record[_user]["username"] == data:
                                 control = False
                     elif action == "post":
-                        if len(data) > 100:
-                            control = False
-                        if time.time() - self.get_user(user)["last_post"] < self.post_wait_time:
-                            control = False
+    if len(data) > 100:
+        control = False
+    if time.time() - settings.get("last_post", 0) < 24 * 60 * 60:
+        print("Error: Cannot post more than once in a day.")
+        return False
+    if time.time() - self.get_user(user)["last_post"] < self.post_wait_time:
+        control = False
                         
                     
                     if control:
@@ -119,11 +122,12 @@ class web3:
                             database_user["username"] = data
                         elif action == "post":
                             database_user["posts"] = data
-                            database_user["last_post"] = time.time()
-                            database_user["post_numer"] += 1
-                            database_new_messages.set(each["signature"], [database_user["username"], data])
+    database_user["last_post"] = time.time()
+    settings.set("last_post", database_user["last_post"])
+    database_user["post_numer"] += 1
+    database_new_messages.set(each["signature"], [database_user["username"], data])
 
-                        database.set(user, database_user)
+    database.set(user, database_user)
 
 
 
