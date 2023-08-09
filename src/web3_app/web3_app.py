@@ -67,6 +67,7 @@ class web3:
         if len(post) > 100:
             raise Exception("Post should be max 100 char")
         self.integration.send("post", post, self.official)
+        settings.set("last_post", time.time())
         return self.user_final()
 
     def get_user(self, username:str):
