@@ -14,12 +14,12 @@ import fire
 import pickle
 import contextlib
 
-database = KOT("database")
-database_new_messages = KOT("database_new_messages")
+database = KOT("database", folder=os.path.join(os.path.dirname(__file__)))
+database_new_messages = KOT("database_new_messages", folder=os.path.join(os.path.dirname(__file__)))
 
-secret = KOT("secret")
+secret = KOT("secret", folder=os.path.join(os.path.dirname(__file__)))
 
-settings = KOT("settings")
+settings = KOT("settings", folder=os.path.join(os.path.dirname(__file__)))
 
 class web3:
     command_line = False
