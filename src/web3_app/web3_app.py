@@ -15,12 +15,13 @@ import fire
 import pickle
 import contextlib
 
-database = KOT("database", folder=os.path.join(os.path.dirname(__file__)))
-database_new_messages = KOT("database_new_messages", folder=os.path.join(os.path.dirname(__file__)))
+database = KOT("database")
+database_new_messages = KOT("database_new_messages")
 
-secret = KOT("secret", folder=os.path.join(os.path.dirname(__file__)))
+secret = KOT("secret")
 
-settings = KOT("settings", folder=os.path.join(os.path.dirname(__file__)))
+settings = KOT("settings")
+user_db = KOT("user_db", folder=os.path.join(os.path.dirname(__file__)))
 
 class web3:
     command_line = False
@@ -63,13 +64,13 @@ class web3:
         return self.user_final()
     
     def post(self, post:str):
-        last_post = settings.get("last_post")
+        last_post = user_db.get("last_post")
         if last_post is not None and time.time() - last_post >= self.post_wait_time:
             raise Exception("You cant send more post.")
         if len(post) > 100:
             raise Exception("Post should be max 100 char")
         if self.integration.send("post", post, self.official):
-            settings.set("last_post", time.time())
+            user_db.set("last_post", time.time())
         return self.user_final()
 
     def get_user(self, username:str):
