@@ -65,7 +65,7 @@ class web3:
     
     def post(self, post:str):
         last_post = user_db.get("last_post")
-        if last_post is not None and time.time() - last_post >= self.post_wait_time:
+        if last_post is not None and time.time() - last_post < self.post_wait_time:
             raise Exception("You cant send more post.")
         if len(post) > 100:
             raise Exception("Post should be max 100 char")
