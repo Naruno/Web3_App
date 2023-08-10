@@ -117,5 +117,6 @@ def main(page: ft.Page):
             border_radius=5,
             padding=10,
             expand=True,
+            scroll="AUTO",
         ),
     )
