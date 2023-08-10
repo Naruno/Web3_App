@@ -23,7 +23,7 @@ class ChatMessage(ft.Row):
                 ft.Column(
                     [
                         ft.Text(message.user_name, weight="bold"),
-                        ft.Text(message.text, selectable=True),
+                        ft.Text(message.text, width=self.width selectable=True),
                     ],
                     tight=True,
                     spacing=5,
@@ -112,7 +112,7 @@ def main(page: ft.Page):
     # Add everything to the page
     page.add(
         ft.Container(
-            content=ft.Column(chat,scroll="AUTO"),
+            content=chat,
             border=ft.border.all(1, ft.colors.OUTLINE),
             border_radius=5,
             padding=10,
