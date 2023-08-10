@@ -112,11 +112,11 @@ def main(page: ft.Page):
     # Add everything to the page
     page.add(
         ft.Container(
-            content=chat,
+            content=ft.Column(chat,scroll="AUTO"),
             border=ft.border.all(1, ft.colors.OUTLINE),
             border_radius=5,
             padding=10,
             expand=True,
-            scroll="AUTO",
+            
         ),
     )
