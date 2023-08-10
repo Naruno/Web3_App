@@ -23,7 +23,7 @@ class ChatMessage(ft.Row):
                 ft.Column(
                     [
                         ft.Text(message.user_name, weight="bold"),
-                        ft.Text(message.text[:30], selectable=True, tooltip="Click to view full message"),
+                    ft.Text(message.text, selectable=True, tooltip="Click to view full message"),
                     ],
                     tight=True,
                     spacing=5,
