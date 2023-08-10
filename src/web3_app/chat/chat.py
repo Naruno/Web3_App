@@ -23,9 +23,7 @@ class ChatMessage(ft.Row):
                 ft.Column(
                     [
                         ft.Text(message.user_name, weight="bold"),
-                    ft.Span(
-                        ft.Text(message.text[:30], selectable=True, tooltip="Click to view full message")
-                    ),
+                    ft.Text(message.text) if len(message.text) <= 30 else ft.Span(ft.Text(message.text[:30], selectable=True, tooltip="Click to view full message")),
                     ],
                     tight=True,
                     spacing=5,
