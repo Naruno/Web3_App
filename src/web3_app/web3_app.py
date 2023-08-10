@@ -42,7 +42,7 @@ class web3:
     def post_wait_time(self):
         record = settings.get("hour")
         if record == None:
-            record = 4
+            record = 24
         return record * 60 * 60
 
     @staticmethod
@@ -63,10 +63,13 @@ class web3:
         return self.user_final()
     
     def post(self, post:str):
-        #its should max 100 char
+        last_post = settings.get("last_post")
+        if last_post is not None and time.time() - last_post >= self.post_wait_time:
+            raise Exception("You cant send more post.")
         if len(post) > 100:
             raise Exception("Post should be max 100 char")
-        self.integration.send("post", post, self.official)
+        if self.integration.send("post", post, self.official):
+            settings.set("last_post", time.time())
         return self.user_final()
 
     def get_user(self, username:str):
