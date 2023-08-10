@@ -23,7 +23,7 @@ class ChatMessage(ft.Row):
                 ft.Column(
                     [
                         ft.Text(message.user_name, weight="bold"),
-                        ft.Text(message.text, selectable=True, style=ft.TextThemeStyle.BODY_SMALL),
+                        ft.Text(message.text, selectable=True, style=ft.TextThemeStyle.BODY_SMALL, max_width=200),
                     ],
                     tight=True,
                     spacing=5,
