@@ -30,6 +30,8 @@ class web3:
             settings.set("hour", hour)
 
         self.integration = None
+        self.host = host
+        self.port = port
 
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
 
@@ -55,7 +57,7 @@ class web3:
     def auth_need(self):
         if self.integration is None:
             password = secret.get("password")
-            self.integration = Integration("Web3", password=password, port=port, host=host)
+            self.integration = Integration("Web3", password=password, port=self.port, host=self.host)
 
     def username(self, username:str):
         self.auth_need()
