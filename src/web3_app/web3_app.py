@@ -28,12 +28,7 @@ class web3:
     def __init__(self, port=8000, host="localhost", hour=None,password=None):
         if hour != None:
             settings.set("hour", hour)
-        if password == None:
-            password = secret.get("password")
-            if password == None:
-                web3.set_pass(input("Password: "))
-                password = secret.get("password")
-        
+
         self.integration = Integration("Web3", password=password, port=port, host=host)
 
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
@@ -56,14 +51,23 @@ class web3:
             self.close()            
         return True        
 
+
+    def auth_need(self):
+        if password == None:
+            password = secret.get("password")
+            if password == None:
+                web3.set_pass(input("Password: "))
+                password = secret.get("password")        
+
     def username(self, username:str):
-        #its should max 15 char
+        self.auth_need()
         if len(username) > 15:
             raise Exception("Username should be max 15 char")
         self.integration.send("username", username, self.official)
         return self.user_final()
     
     def post(self, post:str):
+        self.auth_need()
         last_post = user_db.get("last_post")
         if last_post is not None and time.time() - last_post < self.post_wait_time:
             raise Exception("You cant send more post.")
