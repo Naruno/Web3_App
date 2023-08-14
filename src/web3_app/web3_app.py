@@ -25,11 +25,11 @@ user_db = KOT("user_db", folder=os.path.join(os.path.dirname(__file__)))
 
 class web3:
     command_line = False
-    def __init__(self, port=8000, host="localhost", hour=None,password=None):
+    def __init__(self, port=8000, host="localhost", hour=None,):
         if hour != None:
             settings.set("hour", hour)
 
-        self.integration = Integration("Web3", password=password, port=port, host=host)
+        self.integration = None
 
         self.official = "c923c646f2d73fcb8f626afacb1a0ade8d98954a"
 
@@ -44,7 +44,6 @@ class web3:
 
     def set_pass(self, password:str):
         secret.set("password", password)
-        self.user_final()
 
     
     def user_final(self):
@@ -54,11 +53,9 @@ class web3:
 
 
     def auth_need(self):
-        if password == None:
+        if self.integration is None:
             password = secret.get("password")
-            if password == None:
-                self.set_pass(input("Password: "))
-                password = secret.get("password")        
+            self.integration = Integration("Web3", password=password, port=port, host=host)
 
     def username(self, username:str):
         self.auth_need()
