@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(name='web3_app',
-version='0.2.4',
+version='0.2.5',
 description="""The source of Web3.""",
 long_description_content_type="text/markdown",
 include_package_data=True,
