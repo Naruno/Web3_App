@@ -62,6 +62,7 @@ class web3:
     def username(self, username:str):
         self.auth_need()
         if len(username) > 15:
+            self.user_final()
             raise Exception("Username should be max 15 char")
         self.integration.send("username", username, self.official)
         return self.user_final()
@@ -70,8 +71,10 @@ class web3:
         self.auth_need()
         last_post = user_db.get("last_post")
         if last_post is not None and time.time() - last_post < self.post_wait_time:
+            self.user_final()
             raise Exception("You cant send more post.")
         if len(post) > 100:
+            self.user_final()
             raise Exception("Post should be max 100 char")
         if self.integration.send("post", post, self.official):
             user_db.set("last_post", time.time())
