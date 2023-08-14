@@ -41,9 +41,10 @@ class web3:
             record = 24
         return record * 60 * 60
 
-    @staticmethod
-    def set_pass(password:str):
-        secret.set("password", password)   
+
+    def set_pass(self, password:str):
+        secret.set("password", password)
+        self.user_final()
 
     
     def user_final(self):
@@ -56,7 +57,7 @@ class web3:
         if password == None:
             password = secret.get("password")
             if password == None:
-                web3.set_pass(input("Password: "))
+                self.set_pass(input("Password: "))
                 password = secret.get("password")        
 
     def username(self, username:str):
